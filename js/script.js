@@ -168,8 +168,9 @@ function handleDefenders(){
     for (let i = 0; i < defenders.length; i ++){
         defenders[i].draw();
         defenders[i].update();
-
-        if(enemyPosition.includes(defenders[i].y)){
+        console.log("defenders[i].y: ", defenders[i].y)
+        console.log("enemyPosition array: ", enemyPosition);
+        if(enemyPosition.indexOf(Math.floor(((defenders[i].y)/100))*100) !== -1){
             defenders[i].shooting = true;
             console.log(defenders[i].shooting);
         } else {
