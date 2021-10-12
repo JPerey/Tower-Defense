@@ -11,14 +11,15 @@ const cellSize = 100; //size of our cell. each cell in our gameboard ends up bei
 const cellGap = 3; //a pixel gap between each cell
 let score = 0;
 const winningScore = 50;
+let enemiesInterval = 600;
+let numberOfResources = 300;
+const amounts = [20,30,40];
 const gameGrid = [];
 const defenders = [];
 const enemies = [];
 const enemyPosition = [];
 const projectiles = [];
 const resources = [];
-let enemiesInterval = 600;
-let numberOfResources = 300;
 
 let frame = 0;
 let gameOver = false;
@@ -235,7 +236,7 @@ function handleEnemies(){
             
         }
     }
-        if (frame % enemiesInterval === 0){
+        if (frame % enemiesInterval === 0 && score < winningScore){
             let verticalPosition = Math.floor(Math.random() * 5 + 1)* cellSize;
             enemies.push(new Enemy(verticalPosition));
             enemyPosition.push(verticalPosition);
@@ -246,7 +247,6 @@ function handleEnemies(){
 };
 
 //resources
-const amounts = [20,30,40];
 class Resource {
     constructor(){
         this.x = Math.random()* (canvas.width - cellSize);
@@ -270,7 +270,7 @@ function handleResources (){
         resources.push(new Resource());
     }
     for(let i = 0; i < resources.length; i++){
-        resources[i].draw;
+        resources[i].draw();
         if( resources[i] && mouse.x && mouse.y && collision(resources[i], mouse)){
             numberOfResources += resources[i].amount;
             resources.splice(i,1);
